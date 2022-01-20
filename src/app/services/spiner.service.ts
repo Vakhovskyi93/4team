@@ -15,6 +15,6 @@ export class SpinerService {
     setTimeout(() => {
        
       this.spinner.hide();
-    }, 5000);
+    }, 20000);
   }
 }

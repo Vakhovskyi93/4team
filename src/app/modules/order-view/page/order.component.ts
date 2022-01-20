@@ -32,6 +32,10 @@ export class OrderComponent implements OnInit {
   ngOnInit(): void {}
   submit(){
     this.spiner.show();
-    this.router.navigateByUrl('complete')
+    setTimeout(() => {
+       
+      this.router.navigateByUrl('complete')
+    }, 20000);
+   
   }
 }
