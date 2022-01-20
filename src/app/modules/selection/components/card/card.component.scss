@@ -1,0 +1,29 @@
+.best-offer{
+    
+    position: relative;
+}
+.best-offer:after {
+    content: 'Best offer!';
+    position: absolute;
+    width: 90px;
+    height: 25px;
+    background-color: orange;
+    top: 20px;
+    right: -20px;
+    text-align: center;
+    border-radius: 5px;
+
+}
+
+.card{
+    width: 250px;
+    padding: 20px 15px;
+}
+h5{
+    margin-bottom: 25px;
+}
+
+.price{
+    font-weight: 600;
+    font-size: 24px;
+}

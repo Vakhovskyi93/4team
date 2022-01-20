@@ -1,0 +1,32 @@
+<table *ngIf="userOrder" class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col" sortable="name" ></th>
+      <th scope="col" sortable="value" ></th>
+       
+    </tr>
+    </thead>
+    <tbody>
+    <tr >
+      <th scope="row">Subscription name</th>
+      <th scope="row">{{ product.name }}</th>
+       
+       
+    </tr>
+    <tr >
+      <th scope="row">Price</th>
+      <th scope="row">{{ product.price }}$</th>
+       
+       
+    </tr>
+    <tr >
+      <th scope="row">credit card number</th>
+      <th scope="row">{{ userOrder.cardNumber | blure :12  }} </th>
+       
+       
+    </tr>
+     
+    </tbody>
+    <button class="btn btn-primary" (click)="submit()"> Order </button>
+  </table>

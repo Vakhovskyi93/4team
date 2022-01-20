@@ -1,1 +1,137 @@
-<p>credit-card-form works!</p>
+ 
+ 
+<div class="form" [formGroup]="form">
+  <div class="input-wrap">
+    <label for="firstName">First Name:</label>
+    <input
+      id="firstName"
+      type="text"
+      class="form-control"
+      formControlName="firstName"
+      [ngClass]="{ novalid: requiredError('firstName') }"
+    />
+  </div>
+  <div class="input-wrap">
+    <label for="lastName">Last Name:</label>
+    <input
+      id="lastName"
+      type="text"
+      class="form-control"
+      formControlName="lastName"
+      [ngClass]="{ novalid: requiredError('lastName') }"
+    />
+  </div>
+  <div class="input-wrap">
+    <label for="email">Email:</label>
+    <input
+      id="email"
+      type="text"
+      class="form-control"
+      formControlName="email"
+      [ngClass]="{ novalid: requiredError('email') || validationError('email', 5) }"
+    />
+  </div>
+  <div class="input-wrap">
+    <label for="phone">Phone:</label>
+    <input
+      id="phone"
+      type="text"
+      class="form-control"
+      formControlName="phone"
+      [ngClass]="{ novalid: requiredError('phone') }"
+    />
+  </div>
+  <div class="input-wrap">
+    <label for="country">Country:</label>
+    <input
+      id="country"
+      type="text"
+      class="form-control"
+      formControlName="country"
+      [ngbTypeahead]="searchCountry"
+      (focus)="focus$.next($any($event).target.value)"
+      (click)="click$.next($any($event).target.value)"
+      #countries="ngbTypeahead"
+      [ngClass]="{ novalid: requiredError('country') }"
+    />
+  </div>
+  <div *ngIf="form.get('state')" class="input-wrap">
+    <label for="state">State:</label>
+    <input
+      id="state"
+      type="text"
+      class="form-control"
+      formControlName="state"
+      [ngbTypeahead]="searchState"
+      (focus)="focusState$.next($any($event).target.value)"
+      (click)="clickState$.next($any($event).target.value)"
+      #states="ngbTypeahead"
+      [ngClass]="{ novalid: requiredError('state') }"
+    />
+  </div>
+  <div class="input-wrap">
+    <label for="city">City:</label>
+    <input id="city" type="text" class="form-control" formControlName="city" [ngClass]="{ novalid: requiredError('city') }" />
+  </div>
+  <div class="input-wrap">
+    <label for="street1">Street1:</label>
+    <input
+      id="street1"
+      type="text"
+      class="form-control"
+      formControlName="street1"
+      [ngClass]="{ novalid: requiredError('street1') }"
+    />
+  </div>
+  <div class="input-wrap">
+    <label for="street2">Street2:</label>
+    <input
+      id="street2"
+      type="text"
+      class="form-control"
+      formControlName="street2"
+      [ngClass]="{ novalid: requiredError('street2') }"
+    />
+  </div>
+  <div class="input-wrap">
+    <label for="cardNumber">Card Number: <i [className]="cardType" ></i></label> 
+     
+    <input
+      id="cardNumber"
+      type="text"
+      class="form-control"
+      formControlName="cardNumber"
+      [ngClass]="{ novalid: requiredError('cardNumber') || validationError('cardNumber', 0) }"
+    />
+  </div>
+  <div class="input-wrap">
+    <label for="expDate">exp.Date:</label>
+    <input
+      id="expDate"
+      type="text"
+      class="form-control"
+      formControlName="expDate"
+      [ngClass]="{ novalid: requiredError('expDate') }"
+    />
+  </div>
+  <div class="input-wrap">
+    <label for="cvv">cvv:</label>
+    <input 
+    id="cvv"
+    type="text" 
+    class="form-control" 
+    formControlName="cvv" 
+    [ngClass]="{ novalid: requiredError('cvv') || validationError('cvv', 0) }" />
+  </div>
+  <div class="input-wrap">
+    <label for="zipCode">Zip Code:</label>
+    <input
+      id="zipCode"
+      type="text"
+      class="form-control"
+      formControlName="zipCode"
+      [ngClass]="{ novalid: requiredError('zipCode')  }"
+    />
+  </div>
+  <button class="btn payBtn"  [disabled]='form.invalid'  (click)="submit()"> Pay  </button>
+</div>
