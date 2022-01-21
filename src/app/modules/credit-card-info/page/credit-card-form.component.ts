@@ -19,7 +19,7 @@ import {
   PATTERN_FOR_CVV,
   PATTERN_FOR_EMAIL,
   PATTERN_FOR_CARD,
-  PATTERN_FOR_EXPDATE
+  PATTERN_FOR_EXPDATE,
 } from 'src/app/utils/patterns';
 import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 import { OrderService } from 'src/app/services/order.service';
@@ -86,7 +86,9 @@ export class CreditCardFormComponent implements OnInit {
   ngOnInit(): void {
     this.planName = this.activateRoute.snapshot.params['name'];
     this.formInit();
-    this.form.get('country')?.valueChanges.pipe(
+    this.form
+      .get('country')
+      ?.valueChanges.pipe(
         tap(() => {
           this.form.get('country')?.value === 'United States of America (the)'
             ? this.addStateControl()
@@ -94,7 +96,9 @@ export class CreditCardFormComponent implements OnInit {
         })
       )
       .subscribe();
-    this.form.get('cardNumber')?.valueChanges.pipe(
+    this.form
+      .get('cardNumber')
+      ?.valueChanges.pipe(
         tap(() => {
           this.cardType = this.creditCardServise.setPaymentCompany(
             this.form.get('cardNumber')!.value
@@ -126,7 +130,10 @@ export class CreditCardFormComponent implements OnInit {
         Validators.required,
         Validators.pattern(PATTERN_FOR_CVV),
       ]),
-      expDate: new FormControl('', [Validators.required, Validators.pattern(PATTERN_FOR_EXPDATE)]),
+      expDate: new FormControl('', [
+        Validators.required,
+        Validators.pattern(PATTERN_FOR_EXPDATE),
+      ]),
     });
   }
   submit() {

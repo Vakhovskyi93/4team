@@ -5,19 +5,13 @@ import { RouterModule } from '@angular/router';
 import { OrderComponent } from './page/order.component';
 import { BlurePipe } from 'src/app/pipes/blure.pipe';
 import { NgxSpinnerModule } from 'ngx-spinner';
- 
-
-
 
 @NgModule({
-  declarations: [
-    OrderComponent,
-    BlurePipe
-  ],
+  declarations: [OrderComponent, BlurePipe],
   imports: [
     CommonModule,
     RouterModule.forChild([{ path: ':name', component: OrderComponent }]),
-    NgxSpinnerModule
-  ]
+    NgxSpinnerModule,
+  ],
 })
-export class OrderViewModule { }
+export class OrderViewModule {}

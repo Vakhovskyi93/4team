@@ -119,7 +119,9 @@
       type="text"
       class="form-control"
       formControlName="expDate"
-      [ngClass]="{ novalid: requiredError('expDate') }"
+      [ngClass]="{
+        novalid: requiredError('expDate') || validationError('expDate', 5)
+      }"
     />
   </div>
   <div class="input-wrap">
@@ -142,7 +144,5 @@
       [ngClass]="{ novalid: requiredError('zipCode') }"
     />
   </div>
-  <button class="btn payBtn" [disabled]="form.invalid" (click)="submit()">
-    Pay
-  </button>
+  <button class="btn payBtn" [disabled]="form.invalid" (click)="submit()"> Pay </button>
 </div>

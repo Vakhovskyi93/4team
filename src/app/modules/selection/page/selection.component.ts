@@ -7,11 +7,7 @@ import { Card } from '../../../utils/interfaces'
   templateUrl: './selection.component.html',
   styleUrls: ['./selection.component.scss']
 })
-export class SelectionComponent implements OnInit {
+export class SelectionComponent  {
   personalSubscriptions: Card[] = personalSubscriptions;
   enterpriseSubscriptions: Card[] = enterpriseSubscriptions;
-  constructor() { }
-
-  ngOnInit(): void {}
-
 }

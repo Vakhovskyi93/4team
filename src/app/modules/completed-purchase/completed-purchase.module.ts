@@ -4,17 +4,11 @@ import { RouterModule } from '@angular/router';
 
 import { CompletedComponent } from './page/completed.component';
 
-
-
-
-
 @NgModule({
-  declarations: [
-    CompletedComponent
-  ],
+  declarations: [CompletedComponent],
   imports: [
     CommonModule,
     RouterModule.forChild([{ path: '', component: CompletedComponent }]),
-  ]
+  ],
 })
-export class CompletedPurchaseModule { }
+export class CompletedPurchaseModule {}

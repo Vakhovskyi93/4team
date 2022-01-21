@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 
 @Component({
@@ -6,11 +6,4 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './completed.component.html',
   styleUrls: ['./completed.component.scss']
 })
-export class CompletedComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
+export class CompletedComponent {}

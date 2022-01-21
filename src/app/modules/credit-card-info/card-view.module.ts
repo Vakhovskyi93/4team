@@ -6,20 +6,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-
 @NgModule({
-  declarations: [
-    CreditCardFormComponent,
-  ],
+  declarations: [CreditCardFormComponent],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     NgbTypeaheadModule,
-    RouterModule.forChild([{ path: ':name', component: CreditCardFormComponent }]),
+    RouterModule.forChild([
+      { path: ':name', component: CreditCardFormComponent },
+    ]),
     FontAwesomeModule,
-     
-    
-  ]
+  ],
 })
-export class CardViewModule { }
+export class CardViewModule {}

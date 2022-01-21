@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {  Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { OrderService } from 'src/app/services/order.service';
 import { SpinerService } from 'src/app/services/spiner.service';
@@ -30,12 +30,10 @@ export class OrderComponent implements OnInit {
   }
 
   ngOnInit(): void {}
-  submit(){
+  submit() {
     this.spiner.show();
     setTimeout(() => {
-       
-      this.router.navigateByUrl('complete')
+      this.router.navigateByUrl('complete');
     }, 20000);
-   
   }
 }

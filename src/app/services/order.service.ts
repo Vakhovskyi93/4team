@@ -2,34 +2,32 @@ import { Injectable } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
 import { Card, Order } from '../utils/interfaces';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OrderService {
   order!: Order;
   product!: Card;
 
-   
-
-  constructor() { }
-
-  setOrder(form:Order){
+  setOrder(form: Order) {
     this.order = form;
   }
 
-  setProdact(item: Card){
+  setProdact(item: Card) {
     this.product = item;
   }
 
-  getOrder():Observable<Order>{
-    return of(this.order)
+  /**
+   * get order info
+   */
+  getOrder(): Observable<Order> {
+    return of(this.order);
   }
- 
-  getProdact():Observable<Card>{
-    return of(this.product)
+
+  /**
+   * get selected product
+   */
+  getProdact(): Observable<Card> {
+    return of(this.product);
   }
-
-
-
 }

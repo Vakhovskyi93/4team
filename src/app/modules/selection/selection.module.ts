@@ -6,26 +6,14 @@ import { SelectionComponent } from './page/selection.component';
 import { CardComponent } from './components/card/card.component';
 import { ButtonComponent } from 'src/app/components/button/button.component';
 
-
-
-
-
 @NgModule({
-  declarations: [
-    SelectionComponent,
-    CardComponent,
-    ButtonComponent
-    
-  ],
+  declarations: [SelectionComponent, CardComponent, ButtonComponent],
   imports: [
     CommonModule,
-    
+
     RouterModule.forChild([{ path: '', component: SelectionComponent }]),
     NgbModule,
-    
-     
-     
   ],
-  exports:[RouterModule]
+  exports: [RouterModule],
 })
-export class SelectionModule { }
+export class SelectionModule {}
