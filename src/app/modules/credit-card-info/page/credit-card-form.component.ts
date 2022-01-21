@@ -1,17 +1,29 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { merge, Observable, OperatorFunction, Subject } from 'rxjs';
-import { debounceTime,  distinctUntilChanged,  filter,  map,  tap } from 'rxjs/operators';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  tap,
+} from 'rxjs/operators';
 
 import {
   PATTERN_FOR_CVV,
   PATTERN_FOR_EMAIL,
   PATTERN_FOR_CARD,
+  PATTERN_FOR_EXPDATE
 } from 'src/app/utils/patterns';
-import { states, countryList } from 'src/app/utils/mock';
 import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 import { OrderService } from 'src/app/services/order.service';
+import { CreditCardHendlerService } from 'src/app/services/credit-card-hendler.service';
 
 @Component({
   selector: 'app-credit-card-form',
@@ -41,17 +53,9 @@ export class CreditCardFormComponent implements OnInit {
     const clicksWithClosedPopup$ = this.click$.pipe(
       filter(() => !this.states.isPopupOpen())
     );
-    const inputFocus$ = this.focus$;
 
-    return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
-      map((term) =>
-        (term === ''
-          ? states
-          : states.filter(
-              (v) => v.toLowerCase().indexOf(term.toLowerCase()) > -1
-            )
-        ).slice(0, 10)
-      )
+    return merge(debouncedText$, this.focus$, clicksWithClosedPopup$).pipe(
+      map((term) => this.creditCardServise.searchState(term))
     );
   };
 
@@ -65,17 +69,9 @@ export class CreditCardFormComponent implements OnInit {
     const clicksWithClosedPopup$ = this.click$.pipe(
       filter(() => !this.countries.isPopupOpen())
     );
-    const inputFocus$ = this.focus$;
 
-    return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
-      map((term) =>
-        (term === ''
-          ? countryList
-          : countryList.filter(
-              (v) => v.toLowerCase().indexOf(term.toLowerCase()) > -1
-            )
-        ).slice(0, 10)
-      )
+    return merge(debouncedText$, this.focus$, clicksWithClosedPopup$).pipe(
+      map((term) => this.creditCardServise.searchCountries(term))
     );
   };
 
@@ -83,15 +79,14 @@ export class CreditCardFormComponent implements OnInit {
     private activateRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private router: Router,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private creditCardServise: CreditCardHendlerService
   ) {}
 
   ngOnInit(): void {
     this.planName = this.activateRoute.snapshot.params['name'];
     this.formInit();
-    this.form
-      .get('country')
-      ?.valueChanges.pipe(
+    this.form.get('country')?.valueChanges.pipe(
         tap(() => {
           this.form.get('country')?.value === 'United States of America (the)'
             ? this.addStateControl()
@@ -99,11 +94,11 @@ export class CreditCardFormComponent implements OnInit {
         })
       )
       .subscribe();
-    this.form
-      .get('cardNumber')
-      ?.valueChanges.pipe(
+    this.form.get('cardNumber')?.valueChanges.pipe(
         tap(() => {
-          this.setPaymentCompany(this.form.get('cardNumber')!.value);
+          this.cardType = this.creditCardServise.setPaymentCompany(
+            this.form.get('cardNumber')!.value
+          );
         })
       )
       .subscribe();
@@ -131,15 +126,38 @@ export class CreditCardFormComponent implements OnInit {
         Validators.required,
         Validators.pattern(PATTERN_FOR_CVV),
       ]),
-      expDate: new FormControl('', [Validators.required])
+      expDate: new FormControl('', [Validators.required, Validators.pattern(PATTERN_FOR_EXPDATE)]),
     });
   }
-  submit(){
+  submit() {
     this.orderService.setOrder(this.form.value);
     this.router.navigateByUrl(`order/${this.planName}`);
-    
   }
 
+  /**
+   *  Required error "true || false"
+   */
+  public requiredError(formControlName: string) {
+    return (
+      this.form.get(formControlName)?.hasError('required') &&
+      this.form.get(formControlName)?.touched &&
+      this.form.get(formControlName)?.dirty
+    );
+  }
+
+  /**
+   *  Validation error "true || false"
+   */
+  public validationError(formControlName: string, checkAftersymbols: number) {
+    return (
+      this.form.get(formControlName)?.value.length > checkAftersymbols &&
+      this.form.get(formControlName)?.hasError('pattern')
+    );
+  }
+
+  /**
+   *  if USA => add state control
+   */
   private addStateControl() {
     this.form.addControl('state', new FormControl('', Validators.required));
   }
@@ -147,40 +165,4 @@ export class CreditCardFormComponent implements OnInit {
   private removeStateControl() {
     this.form.get('state') ? this.form.removeControl('state') : null;
   }
-
-  setPaymentCompany(code: string) {
-    switch (code[0]) {
-      case '3':
-        this.cardType = 'fab fa-cc-amex';
-        break;
-
-      case '4':
-        this.cardType = 'fab fa-cc-visa';
-        break;
-
-      case '5':
-        this.cardType = 'fab fa-cc-mastercard';
-        break;
-
-      case '3' || '5' || '6':
-        this.cardType = 'far fa-credit-card';
-        break;
-
-      default:
-        this.cardType = 'far fa-credit-card';
-    }
-  }
-
-  public requiredError(formControlName:string){
-    return  this.form.get(formControlName)?.hasError('required') 
-            && this.form.get(formControlName)?.touched 
-            && this.form.get(formControlName)?.dirty ;
-  }
-  public validationError(formControlName:string, checkAftersymbols: number){
-   
-      return  this.form.get(formControlName)?.value.length > checkAftersymbols 
-              && this.form.get(formControlName)?.hasError('pattern'); 
-    }
-     
-  
 }

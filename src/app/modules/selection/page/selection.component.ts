@@ -9,7 +9,7 @@ import { Card } from '../../../utils/interfaces'
 })
 export class SelectionComponent implements OnInit {
   personalSubscriptions: Card[] = personalSubscriptions;
-  enterpriseSubscriptions = enterpriseSubscriptions;
+  enterpriseSubscriptions: Card[] = enterpriseSubscriptions;
   constructor() { }
 
   ngOnInit(): void {}

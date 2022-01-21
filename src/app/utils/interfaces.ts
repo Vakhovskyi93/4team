@@ -9,6 +9,7 @@ export interface Card {
     bestOffer: boolean,
     id: number
 }
+
 export interface Order {
     email: string,
     firstName: string,
@@ -23,5 +24,11 @@ export interface Order {
     cvv: string,
     expDate: string,
     state?: string
-     
 }
+
+export const enum CardNumberCode {
+    AMEX = '3',
+    VISA = '4',
+    MASTERCARD = '5',
+    MAESTRO = '5',
+  }
