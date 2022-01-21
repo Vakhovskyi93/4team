@@ -16,8 +16,8 @@
       <th scope="row">{{ product.price }}$</th>
     </tr>
     <tr>
-      <th scope="row">credit card number</th>
-      <th scope="row">{{ userOrder.cardNumber | blure: 12 }}</th>
+      <th scope="row">Credit card type and number</th>
+      <th scope="row"> <i [class]="getCardIcon()"></i> {{ userOrder.cardNumber | blure: 12 }}</th>
     </tr>
   </tbody>
   <button class="btn btn-primary" (click)="submit()">Order</button>
