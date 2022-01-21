@@ -43,6 +43,11 @@ export class CreditCardFormComponent implements OnInit {
   focusState$ = new Subject<string>();
   clickState$ = new Subject<string>();
 
+  /**
+   * searching name from statelist
+   * @param text$ string from input field "state"
+   * @returns string
+   */
   searchState: OperatorFunction<string, readonly string[]> = (
     text$: Observable<string>
   ) => {
@@ -59,6 +64,11 @@ export class CreditCardFormComponent implements OnInit {
     );
   };
 
+  /**
+   * searching name from countrylist
+   * @param text$ string from input field "country"
+   * @returns string
+   */
   searchCountry: OperatorFunction<string, readonly string[]> = (
     text$: Observable<string>
   ) => {
@@ -108,6 +118,9 @@ export class CreditCardFormComponent implements OnInit {
       .subscribe();
   }
 
+  /**
+   * creater formControls
+   */
   private formInit() {
     this.form = this.formBuilder.group({
       email: new FormControl('', [

@@ -28,6 +28,11 @@ export class CreditCardHendlerService {
     }
   }
 
+  /**
+   * search country name in list
+   * @param countryName strind from input
+   * @returns string => country name
+   */
   searchCountries(countryName: string) {
     return (
       countryName === ''
@@ -37,6 +42,12 @@ export class CreditCardHendlerService {
           )
     ).slice(0, 10);
   }
+
+  /**
+   * search state name in list
+   * @param countryName strind from input
+   * @returns string => state name
+   */
   searchState(stateName: string) {
     return (
       stateName === ''

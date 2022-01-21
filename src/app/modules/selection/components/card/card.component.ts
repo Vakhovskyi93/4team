@@ -14,6 +14,10 @@ export class CardComponent implements OnInit {
   constructor(private order: OrderService, private router: Router) {}
 
   ngOnInit(): void {}
+
+  /**
+   * set selected product + navigate to fullinfo page
+   */
   select(): void {
     this.order.setProdact(this.item);
     this.router.navigateByUrl(`purchase/${this.item.id}`);
